@@ -1,0 +1,54 @@
+-- since this is just an example spec, don't actually load anything here and return an empty spec
+-- stylua: ignore
+
+-- every spec file under the "plugins" directory will be loaded automatically by lazy.nvim
+--
+-- In your plugin files, you can:
+-- * add extra plugins
+-- * disable/enabled LazyVim plugins
+-- * override the configuration of LazyVim plugins
+return {
+  -- change some telescope options and a keymap to browse plugin files
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = {
+        filtered_items = {
+          hide_dotfiles = false,
+        },
+      },
+    },
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    keys = {
+      -- add a keymap to browse plugin files
+      -- stylua: ignore
+      {
+        "<leader>fp",
+        function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
+        desc = "Find Plugin File",
+      },
+    },
+    -- change some options
+    opts = {
+      defaults = {
+        vimgrep_arguments = {
+          "rg",
+         -- "--color=never",
+         -- "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          "--hidden",
+        },
+       -- layout_strategy = "horizontal",
+       -- layout_config = { prompt_position = "top" },
+       -- sorting_strategy = "ascending",
+        --winblend = 0,
+      },
+    },
+  },
+  
+}
